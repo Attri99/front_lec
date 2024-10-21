@@ -60,8 +60,8 @@
 
 <script>
   let i = 1;
-  let prePlus = ++i; // 전위 증가, i를 먼저 증가한 뒤 prePlus에 할당
   let postPlus = i++; // 후위 증가, i를 postPlus에 할당한 뒤 나중에 증가
+  let prePlus = ++i; // 전위 증가, i를 먼저 증가한 뒤 prePlus에 할당
   document.write(`<div>i = ${i}</div>`);
   document.write(`<div>prePlus = ${prePlus}</div>`);
   document.write(`<div>postPlus = ${postPlus}</div>`);
@@ -138,6 +138,7 @@
   let age = 11;
   document.write('<div>나이는 ' + age + '살입니다.</div>');
 </script>
+
 <!-- 문제. 라면 박스 계산하기-->
 <script>
   /* 라면이 65개 있다. 한 박스당 20개 들어간다. 몇 박스 남는지, 남는 라면 몇개인지 계산하시오 */
@@ -163,11 +164,7 @@
   const regularPay = hourlyWage * workingTime; // 기본 시급 계산
   const extraPay = (workingTime <= 8 ? 0 : workingTime - 8) * hourlyWage * 0.5;
   document.write(`<div>${workingTime}시간 근무한 급여는 ${regularPay + extraPay}원입니다.</div>`);
-  let pay = 10030;
-  let time = 10;
-  let daypay = pay * time
-  document.write(`<div>pay는 ${time <= 8 ? pay : pay * 1.5}이다.</div>`);
-  document.write(`<div>${pay*8 + 15045 * 2}</div>`);
+  
 </script>
 
 
