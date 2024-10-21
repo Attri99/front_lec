@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>overflow</title>
+</head>
+
+<body>
+  <style>
+    div {
+      width: 200px;
+      height: 80px;
+      margin-bottom: 50px;
+    }
+
+    #box1{
+      overflow: hidden;
+    }
+
+    #box2{
+      overflow: scroll;
+    }
+
+    #box3{
+      overflow: auto;
+    }
+    
+    #box4{
+      overflow: visible;
+    }
+  </style>
+
+
+
+
+
+  <!-- overflow : hidden; (숨김)-->
+
+  <div id="box1">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu convallis ex, a convallis dolor. Donec dictum
+    sodales egestas. Ut sed magna eu elit accumsan pretium eget at nisi. Aenean mattis mauris venenatis augue placerat
+    ullamcorper. Nunc aliquet gravida hendrerit. Suspendisse malesuada id ligula ut semper. Pellentesque pellentesque
+    tempor lacus. Duis eu scelerisque nisi. Nunc et nisl hendrerit, placerat purus non, ultrices augue. Suspendisse vel
+    faucibus justo, ut elementum lorem.
+  </div>
+
+  <!-- overflow : scroll; (스크롤)-->
+
+  <div id="box2">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu convallis ex, a convallis dolor. Donec dictum
+    sodales egestas. Ut sed magna eu elit accumsan pretium eget at nisi. Aenean mattis mauris venenatis augue placerat
+    ullamcorper. Nunc aliquet gravida hendrerit. Suspendisse malesuada id ligula ut semper. Pellentesque pellentesque
+    tempor lacus. Duis eu scelerisque nisi. Nunc et nisl hendrerit, placerat purus non, ultrices augue. Suspendisse vel
+    faucibus justo, ut elementum lorem.
+  </div>
+
+  <!-- overflow : auto; (자동)-->
+  <div id="box3">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu convallis ex, a convallis dolor. Donec dictum
+    sodales egestas. Ut sed magna eu elit accumsan pretium eget at nisi. Aenean mattis mauris venenatis augue placerat
+    ullamcorper. Nunc aliquet gravida hendrerit. Suspendisse malesuada id ligula ut semper. Pellentesque pellentesque
+    tempor lacus. Duis eu scelerisque nisi. Nunc et nisl hendrerit, placerat purus non, ultrices augue. Suspendisse vel
+    faucibus justo, ut elementum lorem..
+  </div>
+  <!-- overflow : visible; (디폴트) -->
+  <div id="box4">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu convallis ex, a convallis dolor. Donec dictum
+    sodales egestas. Ut sed magna eu elit accumsan pretium eget at nisi. Aenean mattis mauris venenatis augue placerat
+    ullamcorper. Nunc aliquet gravida hendrerit. Suspendisse malesuada id ligula ut semper. Pellentesque pellentesque
+    tempor lacus. Duis eu scelerisque nisi. Nunc et nisl hendrerit, placerat purus non, ultrices augue. Suspendisse vel
+    faucibus justo, ut elementum lorem.
+  </div>
+
+
+  <hr>
+
+  <style>
+    .gnb {
+      margin-top: 300px;
+      list-style-type: none;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .gnb > li {
+      float: left;
+      padding: 10px;
+      border: 1px solid gray;
+      text-align: center;
+    }
+  </style>
+
+  <ul class="gnb">
+    <li>정치</li>
+    <li>경제</li>
+    <li>사회</li>
+    <li>생활/문화</li>
+    <li>IT/과학</li>
+  </ul>
+  <div class="content">content</div>
+</body>
+
+</html>

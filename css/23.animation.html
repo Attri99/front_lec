@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>animation</title>
+</head>
+<body>
+
+  <style>
+    div{
+      width: 100px;
+      height: 100px;
+      border: 1px solid green;
+      box-sizing: border-box;
+      }
+  </style>
+
+  <style>
+    /* keyframes를 통해 애니메이션 내용과 이름을 등록한다. */
+    @keyframes circle{
+      /* from은 애니메이션의 시작 지점*/
+      from {
+        background-color: crimson;
+        opacity: 0;
+      }
+      to { 
+        
+        background-color: yellow;
+        opacity: 1;
+      }
+    }
+
+    .box1{
+      border-radius: 50px;
+      animation-name: circle; /* keyframes에서 등록한 애니메이션 이름 */
+      animation-duration: 2s; /* 애니메이션 시간 2초 */
+      animation-iteration-count: infinite; /* 애니메이션 반복 횟수 */
+      animation-direction: alternate; /* 애니메이션 방향 */
+
+    }
+  </style>
+  <div class="box1"></div>
+
+  <hr>
+  <style>
+    @keyframes neon{
+      0% {background-color: aqua;}
+      12.5% {background-color: teal;}
+      25% {background-color: rgb(23, 62, 192);}
+      37.5% {background-color: rgb(117, 33, 174);}
+      50% {background-color: aqua;}
+      62.5% {background-color: rgb(23, 62, 192);}
+      75% {background-color: teal;}
+      87.5% {background-color: lime;}
+      100% {background-color: aqua;}
+    }
+
+    .box2{
+      border-radius: 50px;
+      animation: neon 2s ease 0s infinite alternate;
+    }
+  </style>
+
+  <div class="box2"></div>
+
+  <hr>
+
+  <style>
+    @keyframes moving {
+      from{
+        margin-left: 0;
+        }
+      
+      to {
+        margin-left: 100px;
+      }
+    }
+    
+    .box3{
+      position: absolute;
+      
+      animation: moving 2s ease 0s infinite alternate;
+    }
+
+  </style>
+  <div class="box3"></div>
+</body>
+</html>

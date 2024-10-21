@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>table_ex4.html</title>
+</head>
+<body>
+  <table border="1">
+    <caption>우리펜션 객실안내</caption> <!-- caption 태그는 테이블의 제목을 만들고 table의 자식요소다-->
+    <tbody>
+      <tr>
+        <th>방이름</th>
+        <th>고객구분</th>
+        <th>정원</th>
+        <th>가격</th>
+      </tr>
+      <tr>
+        <td>콜로라도</td>
+        <td>여성 전용</td>
+        <td rowspan="3">4인실</td>
+        <td rowspan="4">100,000원</td>
+      </tr>
+      <tr>
+        <td rowspan="2">아레나도</td>
+        <td>가족용</td>
+      </tr>
+      <tr>
+        <td>커플용</td>
+      </tr>
+      <tr>
+        <td>엘레나</td>
+        <td>커플 전용</td>
+        <td>2인실</td>
+      </tr>
+      <tr>
+        <th colspan="4">6월 15일까지 전 객실 50% 할인</th>
+      </tr>
+    </tbody>
+    <!--해도 안해도 상관없지만 thead, tbody, tfoot으로 나누어주면 좋다-->
+  </table></caption>
+
+</body>
+</html>
