@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>JSON_Object</title>
 </head>
 
 <body>
@@ -86,7 +86,8 @@
     document.write(`<div>${strJson}</div>`);
 
     //JSON 객체
-    const obJson =
+    const objJson = JSON.parse(strJson);
+    document.write(`<div>${objJson.model}, ${objJson.price}</div>`);
 
   </script>
 

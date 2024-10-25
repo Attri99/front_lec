@@ -98,7 +98,7 @@
 
 <script>
 
-const str = 'JavaScript';
+var str = 'JavaScript';
 document.write(`<div>길이 : ${str.length}</div>`);
 
 document.write(`<div>첫 글자 : ${str.at(0)}</div>`);
@@ -115,44 +115,44 @@ if(str.startsWith('Java')){
 if(str.endsWith('Script')){
     document.write('<div>Script로 끝납니다.</div>');
 }
- //대문자 정규식
-document.write(`<div>${str.match(regUpper)}</div>`); // 대문자를 모두 찾아서 배여롤 변환
-document.write(`<div>${str.search(regUpper)}</div>`); // 첫번째 대문자의 인덱스를 반환
-
-document.write(`<div>${str.padStart(15, '*')}</div>`); // str의 길이가 15가 되도록  *를 왼쪽
-document.write(`<div>${str.padEnd(15, '*')}</div>`); // str의 길이가 15가 되도록  *를 왼쪽
 </script>
 <hr>
 <script>
+    //대문자 정규식
     
     const regUpper = /[A-Z]/g;
+    document.write(`<div>${str.match(regUpper)}</div>`); // 대문자를 모두 찾아서 배열로 변환
+    document.write(`<div>${str.search(regUpper)}</div>`); // 첫번째 대문자의 인덱스를 반환
     
-    document.write(`<div>${str.replace('Java', 'ECMA')}</div>`);
-    document.write(`<div>${str.replace('a', 'A')}</div>`);
-    document.write(`<div>${str.replaceAll('a', 'A')}</div>`);
+    document.write(`<div>${str.padStart(15, '*')}</div>`); // str의 길이가 15가 되도록  *를 왼쪽에 채우시오
+    document.write(`<div>${str.padEnd(15, '*')}</div>`); // str의 길이가 15가 되도록  *를 오른쪽에 채우시오
+    
+    document.write(`<div>${str.replace('a', 'A')}</div>`); // 첫번째 'a'가 'A'로 바뀜
+    document.write(`<div>${str.replaceAll('a', 'A')}</div>`); // 모든 'a'가 'A'로 바뀜
 
     document.write(`<div>${str.replace(/[A-Z]/g, 'A')}</div>`); // 모든 대문자가 'A'로 바뀜
     document.write(`<div>${str.replaceAll(/[A-Z]/g, 'A')}</div>`); // 모든 대문자가 'A'로 바뀜
+    
     document.write(`<div>${str.slice(4)} </div>`); // 인덱스 4부터 끝까지
     document.write(`<div>${str.slice(0, 4)} </div>`); // 인덱스 0부터 인덱스 3까지
-    document.write(`<div>${str.substring(4)} </div>`); // 
-    document.write(`<div>${str.substring(0, 4)} </div>`); // 
+    document.write(`<div>${str.substring(4)} </div>`); // 인덱스 4부터 끝까지
+    document.write(`<div>${str.substring(0, 4)} </div>`); // 인덱스 0부터 인덱스 3까지
     document.write(`<div>${str.substr(4)} </div>`); // 인덱스 4부터 끝까지 (deprecated)
     document.write(`<div>${str.substr(0, 4)} </div>`); // 인덱스 0부터 4까지 (deprecated)
 
     document.write(`<div>${str.slice(-6)} </div>`); // 인덱스 -6부터(뒤에서 6번째 글자) 끝까지
-    document.wriete(`<div>${str.slice(-10, -6)}</div>`); // 인덱스 -10부터 -6까지
+    document.write(`<div>${str.slice(-10, -6)}</div>`); // 인덱스 -10부터 -6까지
 
     var str = 'Jan, Feb, Mar, April, May'
     var ary = str.split(',');
-    ary.forEach((element, i) => document.write(`<div>인덱스 ${i} : ${element}</div>`))
+    ary.forEach((element, i) => document.write(`<div>인덱스 ${i} : ${element}</div>`));
 
     document.write(`<div>소문자 : ${str.toLowerCase()}</div>`);
     document.write(`<div>대문자 : ${str.toUpperCase()}</div>`);
 
     var str = '  JavaScript   ';
     document.write(`<div>${str.trim()}, ${str.trim().length}</div>`);
-    document.write(`<div>${str.trimstart()}, ${str.trimstart().length}</div>`);
+    document.write(`<div>${str.trimStart()}, ${str.trimStart().length}</div>`);
     document.write(`<div>${str.trimEnd()}, ${str.trimEnd().length}</div>`);
 </script>
 <hr>
@@ -173,16 +173,14 @@ document.write(`<div>${str.padEnd(15, '*')}</div>`); // str의 길이가 15가 �
         const str = param.trim().toLowerCase();
         return str === 'yes' || str === 'y';
     };
-    const arr = ['yes', 'Yes', 'YES', 'y', 'Y', '   yes', '  yes'];
+    const arr = ['yes', 'Yes', 'YES', 'y', 'Y', 'No','   yes', '  yes'];
     arr.forEach((element) => {
         if(yesCheck(element)){
             document.write(`<div>${element}는 yes입니다.</div>`);
         } else {
             document.write(`<div>${element}는 yes가 아닙니다.</div>`);
         }
-    }
-    
-    )
+    })
 </script>
 
 <!-- 문제 2. addCarMaker() 함수 구현하기 -->

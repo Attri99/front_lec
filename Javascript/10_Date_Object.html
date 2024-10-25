@@ -92,13 +92,13 @@
                 + (millis < 10 ? '00' + millis : millis < 100 ? '0' + millis : millis);
 
   document.write(`<div>${result}</div>`);
-
+ 
   // 타임 스탬프
   const timestamp1 = now.getTime();
   const timestamp2 = Date.now();
-  document.write(`<div>${timestamp1}, ${timestamp2}</div>`);
+  document.write(`<div>${timestamp1} ${timestamp2}</div>`);
 </script>
-
+<hr>
 
 <!-- 문제. stopWatch() 함수 구현하기 -->
 <h4>stopWatch() 함수</h4>
