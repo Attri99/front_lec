@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
+
 <body>
 
-<!--
+  <!--
     JSON
 
     1. JavaScript Object Notation
@@ -59,7 +61,7 @@
       }
 -->
 
-<!--
+  <!--
     JSON 내장 객체
 
     1. JSON.stringify(value)
@@ -71,11 +73,26 @@
       2) 서버로부터 받은 JSON 문자열 데이터를 JavaScript 데이터로 바꿀 때 주로 활용한다.
 -->
 
+  <h4>JSON 내장 객체</h4>
+  <script>
 
+    const pad = {
+      model: 'iPad',
+      price: 150,
+    }
 
-<!-- 문제. printObject() 함수 구현하기 -->
-<h4>printObject() 함수</h4>
-<script>
+    //JSON 문자열
+    const strJson = JSON.stringify(pad);
+    document.write(`<div>${strJson}</div>`);
+
+    //JSON 객체
+    const obJson =
+
+  </script>
+
+  <!-- 문제. printObject() 함수 구현하기 -->
+  <h4>printObject() 함수</h4>
+  <script>
   /*
     printObject() 함수
     1. 기능
@@ -85,9 +102,17 @@
     3. 반환
       없음
   */
-
-</script>
-<hr>
+  
+    const printObject = (strJson) => {
+      const objJson = JSON.parse(strJson);
+      for (const prop in objJson) {
+        document.write(`<div>${prop}: ${objJson[prop]}</div>`);
+      }
+    }
+    printObject('{"name" : "jessica", "age" : 30, "isMarried" : false}');
+  </script>
+  <hr>
 
 </body>
+
 </html>
