@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>DOM</title>
 </head>
+
 <body>
-  
-<!--
+
+  <!--
     DOM
     1. Document Object Model, 문서 객체 모델
     2. HTML, XML 문서의 프로그래밍 인터페이스이다.
     3. 프로그래밍 언어가 DOM 구조에 접근할 수 있는 방법을 제공하여 문서 구조, 스타일, 내용 등을 변경할 수 있게 돕는다.
 -->
 
-<!--
+  <!--
     ■■■ HTML ■■■                              ■■■ DOM tree ■■■
 
     <html lang="ko">                              Document
@@ -28,15 +30,15 @@
     </htm.>                            "My Document"  "Header"  "Paragraph"
 -->
 
-<!--
+  <!--
 
                         DOM 객체 계층 구조
 
                             EventTarget
                                  ↑
-                                Node
+                                Node(firstChild)
                   ┌--------------┼------------┐
-                Text          Element       Comment
+                Text          Element       Comment // 부모 속성이 자식 속성의 classname을 사용할 수 없다.
                                  ↑
                             HTMLElement
         ┌------------------------┼------------------------┐
@@ -44,7 +46,7 @@
 
 -->
 
-<!--
+  <!--
     Element / Node
 
     1. DOM 계층 구조를 구성하는 가장 기본적인 객체이다.
@@ -65,7 +67,7 @@
         (7) textContent     : 현재 Node와 그 자손의 텍스트 콘텐츠를 가져오거나 설정함
 -->
 
-<!--
+  <!--
     주요 Document 객체 반환 메소드
 
     1. Document.getElementById(id)
@@ -100,7 +102,7 @@
       반드시 DOM 객체를 상단에 배치하고 JavaScript 코드를 하단에 배치해야 한다.
 -->
 
-<!--
+  <!--
     ----------------------------------------------------------------------------------
                     | HTMLCollection           | NodeList
     ----------------|--------------------------|--------------------------------------
@@ -126,8 +128,34 @@
     forEach()       | No                       | Yes 
     ----------------------------------------------------------------------------------
 -->
+  <h4>DOM 객체 반환 메소드</h4>
+  <div id="box1" class="primary-box">box1</div>
+  <div id="box2" class="primary-box">box2</div>
+  <div id="box3" class="primary-box">box3</div>
+  <script>
 
-<!--
+    /* HTMLElement 객체 반환 */
+    const box1 = document.getElementById('box1');
+    console.log(box1);
+    const box2 = document.querySelector('#box2');
+    console.log(box2);
+    const boxes = document.querySelector('.primary-box'); // 동일한 선택자가 여럿 있는 경우 첫번째 요소만 반환된다.
+    console.log(boxes);
+
+    /* HTMLcollection 객체 반환 */
+
+    const dives = document.getElementsByTagName('div');
+    console.log(dives);
+    const primaryBox = document.getElementsByClassName('primary-box');
+    console.log(primaryBox);
+
+    /* NodeList 객체 반환 */
+    const primaryBoxes = document.querySelectorAll('.primary-box');
+    console.log(primaryBoxes);
+  </script>
+<hr>
+
+  <!--
     1. 기존 DOM 객체 변경
       1) 요소   : Element.innerHTML = 'HTML';
       2) 텍스트 : Node.textContent = 'TEXT';
@@ -136,8 +164,17 @@
       1) 요소   : Element.innerHTML += 'HTML';
       2) 텍스트 : Node.textContent += 'TEXT';
 -->
+  <h4>DOM 객체 조작하기</h4>
+  <ul id="four-seasons">
+    <li>이 곳에 사계절을 넣으세요</li>
+  </ul>
+  <script>
+    const fourSeasons = document.getElementById('four-seasons');
+    fourSeasons.innerHTML = '<li>봄</li><li>여름</li><li>가을</li><li>겨울</li>';
+  </script>
+  <hr>
 
-<!--
+  <!--
     CSS 적용
     1. HTMLElement 객체의 style 속성을 이용한다.
     2. inline 방식으로 CSS 가 처리된다. (style 속성을 주면 기존 CSS는 덮어쓰기된다.)
@@ -149,7 +186,19 @@
       2) 대괄호 : HTMLElement.style['font-size'] = '12px';
 -->
 
-<!--
+  <h4>CSS 적용하기</h4>
+  <div>
+    <a id="google-link" href="https://www.google.com">Google</a>
+  </div>
+  <script>
+    const googleLink = document.getElementById('google-link');
+    googleLink.style.color = '#080808';
+    googleLink.style.fontSize = '24px';
+    googleLink.style['font-weight'] = '700';
+    googleLink.style['text-decoration'] = 'none'; // 똑같은 method를 여러번 실행하는 것은 좋지 않다.
+
+  </script>
+  <!--
     HTML Attribute
     1. HTML 태그에 명시된 속성을 의미한다.
     2. 예시
@@ -160,16 +209,68 @@
       2) 수정하기 : setAttribute(attribute, value)
       3) 삭제하기 : removeAttribute(attribute)
 -->
+  <h4>Attribute 속성</h4>
+  <div>
+    <!--type ="text"는 생략이 가능한 디폴트 속성-->
+    <input name="id" id="id" class='inp' readonly>
 
-<!--
+  </div>
+  <script>
+
+    const id = document.getElementById('id');
+
+    // attribute 가져오기
+    console.log('type      : ', id.getAttribute('type')); // type 속성이 없으므로 null
+    console.log('name      : ', id.getAttribute('name'));
+    console.log('id        : ', id.getAttribute('id'));
+    console.log('class     : ', id.getAttribute('class'));
+    console.log('readonly  : ', id.getAttribute('readonly')); // readonly의 속성값은 string
+
+    // attribute 수정하기
+    id.setAttribute('name', 'user-id');   //name = 'id' -> name = "user-id"
+    id.setAttribute('value', 'admin');
+
+    // attribute 삭제하기
+    id.removeAttribute('readonly');
+    id.removeAttribute('value');
+  </script>
+  <hr>
+
+
+  <!--
     DOM property
     1. DOM 객체가 가지고 있는 속성이다.
     2. 호출 방식
       1) 객체.property
       2) 객체['property']
 -->
+  <h4>Property 속성</h4>
+  <div>
+    <!--type ="text"는 생략이 가능한 디폴트 속성-->
+    <input name="pw" id="pw" class="inp" readonly>
+  </div>
+  <script>
 
-<!--
+    // 객체 pw가 가진 속성(property)은 태그 속성(Attribute)보다 우선 연습한다.
+    const pw = document.getElementById('pw');
+
+    console.log('type    : ', pw.type); //pw['type']
+    console.log('name    : ', pw.name); //pw['name']
+    console.log('id    : ', pw.id);     //pw['id']
+    console.log('class    : ', pw.className); //pw['className'] 
+    console.log('readonly    : ', pw.readonly); //pw['readOnly']
+
+    // property 수정
+    pw.name = 'user-pw';
+    pw.type = 'password';
+    pw.value = '1234';
+
+    // DOM 객체 속성은 삭제하지 않는다.
+    delete pw.readonly; // 동작 안함
+  </script>
+  <hr>
+
+  <!--
     HTML Attribute vs DOM Property
 
     1. 주요 특징 | HTML Attribute     | DOM Property
@@ -188,257 +289,358 @@
 
 
 
-<!-- 문제1. printScores() 함수 구현하기 -->
-<h4>printScores() 함수</h4>
-<div>
-  <div>국어점수 <span id="kor">81</span>점</div>
-  <div>영어점수 <span id="eng">93</span>점</div>
-  <div>수학점수 <span id="math">100</span>점</div>
-</div>
-<div>
-  <div>평균점수 <span id="average"></span>점</div>
-  <div>학점 <span id="grade"></span>학점</div>
-</div>
-<script>
-  /*
-    printScores() 함수
-    1. 기능
-      국어, 영어, 수학 점수를 읽은 뒤 평균 점수와 학점을 출력하는 함수
-    2. 인자
-      국어, 영어, 수학 점수를 읽은 뒤 배열로 만들어서 반환하는 getScores() 함수
-    3. 반환
-      없음
-  */
-
-</script>
-<hr>
-
-
-
-<!-- 문제2. changeLink() 함수 구현하기 -->
-<h4>changeLink() 함수</h4>
-<div id="logo-wrap">
-  <a href="https://www.google.com/">
-    <img src="../assets/images/logo_google.png" width="100px">
-  </a>
-</div>
-<script>
-  /*
-    changeLink() 함수
-    1. 기능
-      이미지와 연결 링크를 바꿔주는 함수
-    2. 인자
-      1) 링크로 사용할 이미지
-      2) 링크 주소
-    3. 반환
-      없음
-  */
-
-</script>
-<hr>
-
-
-
-<!-- 문제3. watch() 함수 구현하기 -->
-<h4>watch() 함수</h4>
-<div>
-  <h1 id="watch">
-    <span id="year"></span>년 
-    <span id="month"></span>월 
-    <span id="day"></span>일 
-    <span id="hour"></span>시 
-    <span id="minute"></span>분 
-    <span id="second"></span>초입니다.
-  </h4>
-</div>
-<style>
-  .normal {
-    color: teal;
-  }
-  .warning {
-    color: red;
-  }
-</style>
-<script>
-  /*
-    watch() 함수
-    1. 기능
-      1) 현재 시간을 "년-월-일 시:분:초" 형식으로 1초마다 한 번씩 화면에 출력하는 함수
-      2) "년도"는 4자리로 표시하고 "월,일,시,분,초"는 2자리로 표시
-      3) 매 분마다 50초 이상의 시간은 color: red 적용
-    2. 인자
-      없음
-    3. 반환
-      없음
-  */
-
-</script>
-<hr>
-
-
-
-<!-- 문제4. displayDday() 함수 구현하기 -->
-<h4>displayDday() 함수</h4>
-<div id="d-day"></div>
-<script>
-  /*
-    displayDday() 함수
-    1. 기능
-      1) 디데이를 화면에 출력하는 함수
-      2) D-Day 가 2030-01-01 인 경우의 예시
-        (1) 1일 이상 남은 경우 : D-DAY 270일 15:30:45
-        (2) 1일 미만 남은 경우 : D-DAY 15:30:45
-        (3) 디데이가 지난 경우 : D-DAY 가 지났습니다.
-    2. 인자
-      D-Day 를 저장하고 있는 Date 타입의 객체
-    3. 반환
-      없음
-    4. Hint
-      1) D-Day 까지 남은 시간을 밀리초 단위로 구한다.(디데이 - 현재 날짜)
-      2) 밀리초로 계산된 남은 시간을 일,시,분,초 단위로 변환한 뒤 출력한다.
-  */
-
-</script>
-<hr>
-
-
-
-<!-- 문제5. changeImage() 함수 구현하기 -->
-<h4>changeImage() 함수</h4>
-<div id="screen-saver"></div>
-<style>
-  #screen-saver {
-    width: 192px;
-    height: 128px;
-    background-image: url(../assets/images/loading.gif);
-    background-size: cover;
-    transition-duration: 0.5s;  
-    transition-property: background-image;
-  }
-</style>
-<script>
-  /*
-    displayDday() 함수
-    1. 기능
-      1) 5초마다 screen-saver 의 배경 이미지를 변경하는 함수
-      2) 배경 이미지는 animal1.jpg ~ animal10.jpg 중 하나를 사용함
-    2. 인자
-      없음
-    3. 반환
-      없음
-    4. Hint
-      1 ~ 10 사이의 정수 난수를 구하는 getRandomIntInclusive() 함수를 함께 사용
-  */
-
-</script>
-<hr>
-
-
-
-<!-- 문제6. imageCover() 함수 구현하기 -->
-<h4>imageCover() 함수</h4>
-<div id="picture-wrap">
-  <div id="picture"></div>
-  <div id="cover">과일</div>
-</div>
-<style>
-  #picture-wrap {
-    width: 192px;
-    height: 128px;
-  }
-  #picture-wrap div {
-    box-sizing: border-box;
-    border: none;
-    width: 100%;
-    height: 100%;
-    position: relative;
-  }
-  #picture {
-    position: absolute;
-    background-image: url('../assets/images/fruit1.jpg');
-    background-size: 100%;
-    z-index: 1;
-  }
-  #cover {
-    background-color: rgba(0, 0, 0, 1);
-    top: -128px;
-    z-index: 2;
-    text-align: center;
-    padding-top: 45px;
-    color: white;
-    font-size: 32px;
-    font-weight: 900;
-  }
-</style>
-<script>
-  /*
-    imageCover() 함수
-    1. 기능
-      2초마다 이미지 커버의 색상과 투명도를 바꾸는 함수
-    2. 인자
-      없음
-    3. 반환
-      없음
-    4. Hint
-      1) rgba(red, green, blue, opacity) 색상 함수를 이용해서 임의의 색상과 투명도를 구함
-        (1) red, green, blue : 0 ~ 255 사이 정수 값을 가짐
-        (2) opacity          : 0 ~ 1 사이 실수 값을 가짐
-      2) 임의의 rgba(red, green, blue, opacity) 색상 함수를 만들어 반환하는 getRandomRgba() 함수를 만들어서 사용
-  */
-
-</script>
-<hr>
-
-
-
-<!-- 문제7. getMovies() 함수 구현하기 -->
-<h4>getMovies() 함수</h4>
-<table border="1">
-  <thead>
-    <tr><td>번호</td><td>썸네일</td><td>제목</td><td>감독</td></tr>
-  </thead>
-  <tbody id="movies"></tbody>
-</table>
-<script>
-  /*
-    getMovies() 함수
-    1. 기능
-      const movies 배열에 저장된 영화 정보를 가져와서 테이블에 추가하는 함수
-    2. 인자
-      없음
-    3. 반환
-      없음
-  */
-  const getMovies = () => {
-    const movies = {
-      year: 2023,
-      genre: 'action',
-      items: [
-        {
-          no: '20235034',
-          thumbnail: 'https://www.kobis.or.kr/common/mast/movie/2023/11/thumb_x192/thn_65a860f7dfb04c449f4a0f0d3207edee.jpg',
-          title: '더 마블스',
-          director: '니아 다코스타'
-        },
-        {
-          no: '20218935',
-          thumbnail: 'https://www.kobis.or.kr/common/mast/movie/2023/08/thumb_x192/thn_b9b13d4a5ce94150a8ee0522f60b978f.jpg',
-          title: '더 문',
-          director: '김용화'
-        },
-        {
-          no: '20232631',
-          thumbnail: 'https://www.kobis.or.kr/common/mast/movie/2023/06/thumb_x192/thn_fbc864b8a3f64ee98e22372534a81cec.jpg',
-          title: '미션 임파서블:데드 레코닝 PART ONE',
-          director: '크리스토퍼 맥쿼리'
-        }
+  <!-- 문제1. printScores() 함수 구현하기 -->
+  <h4>printScores() 함수</h4>
+  <div>
+    <div>국어점수 <span id="kor">81</span>점</div>
+    <div>영어점수 <span id="eng">93</span>점</div>
+    <div>수학점수 <span id="math">100</span>점</div>
+  </div>
+  <div>
+    <div>평균점수 <span id="average"></span>점</div>
+    <div>학점 <span id="grade"></span>학점</div>
+  </div>
+  <script>
+    /*
+      printScores() 함수
+      1. 기능
+        국어, 영어, 수학 점수를 읽은 뒤 평균 점수와 학점을 출력하는 함수
+      2. 인자
+        국어, 영어, 수학 점수를 읽은 뒤 배열로 만들어서 반환하는 getScores() 함수
+      3. 반환
+        없음
+    */
+    const getScores = (ary) => {
+      return [
+        Number(document.getElementById('kor').textContent),
+        Number(document.getElementById('eng').textContent),
+        Number(document.getElementById('math').textContent),
       ]
     }
+    console.log(getScores());
+    const avg = () => [
 
-  }
-  
-</script>
-<hr>
+    ]
+  </script>
+  <hr>
+
+
+
+  <!-- 문제2. changeLink() 함수 구현하기 -->
+  <h4>changeLink() 함수</h4>
+  <div id="logo-wrap">
+    <a href="https://www.google.com/">
+      <img src="../assets/images/logo_google.png" width="100px">
+    </a>
+  </div>
+  <script>
+    /*
+      changeLink() 함수
+      1. 기능
+        이미지와 연결 링크를 바꿔주는 함수
+      2. 인자
+        1) 링크로 사용할 이미지
+        2) 링크 주소
+      3. 반환
+        없음
+    */
+    const changeLink = (image, link) => {
+      /* attribute 수정 */
+      // document.querySelector('#logo-wrap > a').setAttribute('href', link);
+      // document.querySelector('#logo-wrap img').setAttribute('src', image);
+
+      /* property 수정 */
+
+      document.querySelector('#logo-wrap > a').href = link;
+      document.querySelector('#logo-wrap > img').src = image;
+
+    }
+    changeLink('../assets/images/logo_naver.png', "https:// www.naver.com/");
+  </script>
+  <hr>
+
+
+
+  <!-- 문제3. watch() 함수 구현하기 -->
+  <h4>watch() 함수</h4>
+  <div>
+    <h1 id="watch">
+      <span id="year"></span>년
+      <span id="month"></span>월
+      <span id="day"></span>일
+      <span id="hour"></span>시
+      <span id="minute"></span>분
+      <span id="second"></span>초입니다.
+      </h4>
+  </div>
+  <style>
+    .normal {
+      color: teal;
+    }
+
+    .warning {
+      color: red;
+    }
+  </style>
+  <script>
+    /*
+      watch() 함수
+      1. 기능
+        1) 현재 시간을 "년-월-일 시:분:초" 형식으로 1초마다 한 번씩 화면에 출력하는 함수
+        2) "년도"는 4자리로 표시하고 "월,일,시,분,초"는 2자리로 표시
+        3) 매 분마다 50초 이상의 시간은 color: red 적용 (class : warning 적용)
+      2. 인자
+        없음
+      3. 반환
+        없음
+    */
+    const watch = () => {
+
+      const spanYear = document.getElementById('year');
+      const spanMonth = document.getElementById('month');
+      const spanDay = document.getElementById('day');
+      const spanHour = document.getElementById('hour');
+      const spanMinute = document.getElementById('minute');
+      const spanSecond = document.getElementById('second');
+
+      setInterval(() => {
+        const now = new date();
+        const year = now.getFullYear();
+        const month = now.getMonth() + 1;
+        const day = now.getDate();
+        const hour = now.getHours();
+        const minute = now.getMinutes();
+        const second = now.getSecond();
+
+        spanYear.textContent = year.toString();
+        spanMonth.textContent = month.toString().padStart(2, '0');
+        spanDay.textContent = day.toString().padStart(2, ',');
+        spanHour.textContent = hour.toString().padStart(2, '0');
+        spanMinute.textContent = minute.toString().padStart(2, '0');
+        spanSecond.textContent = second.toString().padStart(2, '0');
+        if (second > 50) {
+          watch.setAttribute('class, warning');
+          watch.className = 'warning';
+        } else {
+          watch.setAttribute('class', 'normal'); //
+
+        }
+      }, 1000);
+    }
+    watch();
+  </script>
+  <hr>
+
+
+
+  <!-- 문제4. displayDday() 함수 구현하기 -->
+  <h4>displayDday() 함수</h4>
+  <div id="d-day"></div>
+  <script>
+    /*
+      displayDday() 함수
+      1. 기능
+        1) 디데이를 화면에 출력하는 함수
+        2) D-Day 가 2030-01-01 인 경우의 예시
+          (1) 1일 이상 남은 경우 : D-DAY 270일 15:30:45
+          (2) 1일 미만 남은 경우 : D-DAY 15:30:45
+          (3) 디데이가 지난 경우 : D-DAY 가 지났습니다.
+      2. 인자
+        D-Day 를 저장하고 있는 Date 타입의 객체
+      3. 반환
+        없음
+      4. Hint
+        1) D-Day 까지 남은 시간을 밀리초 단위로 구한다.(디데이 - 현재 날짜)
+        2) 밀리초로 계산된 남은 시간을 일,시,분,초 단위로 변환한 뒤 출력한다.
+    */
+
+  </script>
+  <hr>
+
+
+
+  <!-- 문제5. changeImage() 함수 구현하기 -->
+  <h4>changeImage() 함수</h4>
+  <div id="screen-saver"></div>
+  <style>
+    #screen-saver {
+      width: 192px;
+      height: 128px;
+      background-image: url(../assets/images/loading.gif);
+      background-size: cover;
+      transition-duration: 0.5s;
+      transition-property: background-image;
+    }
+  </style>
+  <script>
+    /*
+      changeImage() 함수
+      1. 기능
+        1) 5초마다 screen-saver 의 배경 이미지를 변경하는 함수
+        2) 배경 이미지는 animal1.jpg ~ animal10.jpg 중 하나를 사용함
+      2. 인자
+        없음
+      3. 반환
+        없음
+      4. Hint
+        1 ~ 10 사이의 정수 난수를 구하는 getRandomIntInclusive() 함수를 함께 사용
+    */
+
+    const getRandomIntInclusive = (min, max) => {
+      return Math.floor(Math.random() * (max - min + 1) + min); // (max - min + 1개의 난수가 생성됨, start는 min부터)
+    }
+
+    //changeImage
+
+    const changeImage = () => {
+      const screenSaver = document.getElementById('screen-saver');
+      setInterval(() => {
+        screenSaver.style.backgroundImage = `url(../assets/images/animal${getRandomIntInclusive(1, 10)}.jpg)`;
+      }, 5000);
+    }
+  </script>
+  <hr>
+
+
+
+  <!-- 문제6. imageCover() 함수 구현하기 -->
+  <h4>imageCover() 함수</h4>
+  <div id="picture-wrap">
+    <div id="picture"></div>
+    <div id="cover">과일</div>
+  </div>
+  <style>
+    #picture-wrap {
+      width: 192px;
+      height: 128px;
+    }
+
+    #picture-wrap div {
+      box-sizing: border-box;
+      border: none;
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    #picture {
+      position: absolute;
+      background-image: url('../assets/images/fruit1.jpg');
+      background-size: 100%;
+      z-index: 1;
+    }
+
+    #cover {
+      background-color: rgba(0, 0, 0, 1);
+      top: -128px;
+      z-index: 2;
+      text-align: center;
+      padding-top: 45px;
+      color: white;
+      font-size: 32px;
+      font-weight: 900;
+    }
+  </style>
+  <script>
+    /*
+      imageCover() 함수
+      1. 기능
+        2초마다 이미지 커버의 색상과 투명도를 바꾸는 함수
+      2. 인자
+        없음
+      3. 반환
+        없음
+      4. Hint
+        1) rgba(red, green, blue, opacity) 색상 함수를 이용해서 임의의 색상과 투명도를 구함
+          (1) red, green, blue : 0 ~ 255 사이 정수 값을 가짐
+          (2) opacity          : 0 ~ 1 사이 실수 값을 가짐
+        2) 임의의 rgba(red, green, blue, opacity) 색상 함수를 만들어 반환하는 getRandomRgba() 함수를 만들어서 사용
+    */
+
+    const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min) + min); // min은 포함, max는 불포함
+
+    const imageCover = () => {
+      const cover = document.getElementById('cover');
+      setInterval(() => {
+        cover.style.backgroundColor = 'rgba(' +
+          getRandomInt(0, 256) + ', ' +
+          getRandomInt(0, 256) + ', ' +
+          getRandomInt(0, 256) + ', ' +
+          Math.random() + ')';
+
+      }, 2000);
+    }
+
+    imagecover();
+  </script>
+  <hr>
+
+
+
+  <!-- 문제7. getMovies() 함수 구현하기 -->
+  <h4>getMovies() 함수</h4>
+  <table border="1">
+    <thead>
+      <tr>
+        <td>번호</td>
+        <td>썸네일</td>
+        <td>제목</td>
+        <td>감독</td>
+      </tr>
+    </thead>
+    <tbody id="movies"></tbody>
+  </table>
+  <script>
+    /*
+      getMovies() 함수
+      1. 기능
+        const movies 배열에 저장된 영화 정보를 가져와서 테이블에 추가하는 함수
+      2. 인자
+        없음
+      3. 반환
+        없음
+    */
+    const getMovies = () => {
+      const movies = {
+        year: 2023,
+        genre: 'action',
+        items: [
+          {
+            no: '20235034',
+            thumbnail: 'https://www.kobis.or.kr/common/mast/movie/2023/11/thumb_x192/thn_65a860f7dfb04c449f4a0f0d3207edee.jpg',
+            title: '더 마블스',
+            director: '니아 다코스타'
+          },
+          {
+            no: '20218935',
+            thumbnail: 'https://www.kobis.or.kr/common/mast/movie/2023/08/thumb_x192/thn_b9b13d4a5ce94150a8ee0522f60b978f.jpg',
+            title: '더 문',
+            director: '김용화'
+          },
+          {
+            no: '20232631',
+            thumbnail: 'https://www.kobis.or.kr/common/mast/movie/2023/06/thumb_x192/thn_fbc864b8a3f64ee98e22372534a81cec.jpg',
+            title: '미션 임파서블:데드 레코닝 PART ONE',
+            director: '크리스토퍼 맥쿼리'
+          }
+        ]
+      }
+      let str = ''; // 비어있는 초기값 설정을 통해 undefined가 뜨는 것을 방지
+      movies.items.forEach(movie => {
+        str += '<tr>';
+        str += '<td>' + moive.no + '</td>';  
+        str += '<td><img src="' + moive.thumbnail + '" width = "50px"></td>';  
+        str += '<td>' + moive.title + '</td>';  
+        str += '<td>' + moive.director + '</td>';  
+        str += '</tr>';
+
+      })
+      document.getElementById('movies').innerHTML = str;
+    }
+    getMovies();
+  </script>
+  <hr>
 
 </body>
+
 </html>
