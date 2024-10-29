@@ -177,7 +177,7 @@
   <!--
     CSS 적용
     1. HTMLElement 객체의 style 속성을 이용한다.
-    2. inline 방식으로 CSS 가 처리된다. (style 속성을 주면 기존 CSS는 덮어쓰기된다.)
+    2. inline 방식으로 CSS 가 처리된다. (style 속성을 주면 기존 CSS는 덮어쓰기된다, 우선순위가 !important 다음으로 높기 때문)
     3. CSS 속성 적용 방식
       1) 마침표 : CSS 속성 이름을 Dash Case 에서 Camel Case 로 바꿔서 사용한다.
       2) 대괄호 : CSS 속성 이름을 문자열 형식으로 그대로 사용한다.
@@ -286,8 +286,20 @@
     class 속성   |  class="blind"     |  className: "blind"
     checked 속성 |  checked="checked" |  checked: true
 -->
+<div>
+  <input type="radio" name="gender" id="man" value="man" checked> <!-- 속성 이름과 값이 같을 경우 둘 중 하나만 적는다(checked = "checked")-->
+  <label for="man">남자</label>
+  <input type="radio" name="gender" id="woman" value="woman">
+  <label for="woman">여자</label>
+</div>
+<script>
+  const man = document.getElementById('man');
+  man.removeAttribute('checked');
+  const woman = document.getElementById('woman');
+  // woman.setAttribute('checked', 'checked' );
+  woman.checked = true;
 
-
+</script>
 
   <!-- 문제1. printScores() 함수 구현하기 -->
   <h4>printScores() 함수</h4>
