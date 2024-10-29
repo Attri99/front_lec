@@ -291,7 +291,8 @@ btn3.addEventListener('click', function(event){
 <h4>이벤트 위임</h4>
 <style>
   table {
-    border-collapse: collapse;}
+    border-collapse: collapse;
+  }
   table td {
       width: 100px;
       height: 100px;
@@ -317,7 +318,7 @@ btn3.addEventListener('click', function(event){
     <tr>
       <td>Giant</td>
       <td>Hidden</td>
-      <td class="selected-td">Ivy</td>
+      <td>Ivy</td>
     </tr>  
   </tbody>
 </table>
@@ -328,10 +329,10 @@ btn3.addEventListener('click', function(event){
     let selectedTd;
     table.addEventListener('click', function(event){
       const td = event.target; // 클릭한 <td>
-      if(selectedTd !== undefined) // if(selectedTd) 코드와 같음, 첫클릭이 아니라면 이전에 선택한 td는 해제
-      selectedTd.classList.remove('selected-td');  
+      if(selectedTd !== undefined) {// if(selectedTd) 코드와 같음, 첫클릭이 아니라면 이전에 선택한 td는 해제
+        selectedTd.classList.remove('selected-td');}  
       selectedTd = td;          //선택한 <td>
-      selectedTd.classList.add('selected-td');
+        selectedTd.classList.add('selected-td');
     })
   </script>
   <!--
@@ -342,7 +343,33 @@ btn3.addEventListener('click', function(event){
       2) <form> 태그는 submit 하면 action 속성으로 입력 폼 요소의 데이터를 전송하고 입력 폼 요소의 값을 초기화한다.
     3. 이벤트 객체의 preventDefault() 메소드를 호출하면 디폴트 이벤트 동작을 막을 수 있다.
 -->
+ <h4>디폴트 이벤트</h4>
+ <div>
+  <a href="https://www.naver.com" target="_blank" id="naver-link">일회용 Naver 링크</a>
+ </div>
+ <script>
 
+  const naverLink = document.getElementById('naver-link');
+
+  // let visited = false;
+  // naverLink.addEventListener('click', function(event){
+  //   const a = event.target;
+  //   if(visited !== false)
+  //     event.preventDefault();
+  //   visited = a;
+  // }) >> 내가 한거
+
+  let visited = false;
+  naverlink.addEventListener('click', function(event){
+    if(visited){
+      alert('두 번은 못 갑니다.');
+      event.preventDefault(); // <a> 태그 동작 막기
+      return; // 함수 실행 종료
+    }
+    visited = true;
+  })
+
+ </script>
 
 
   <!-- 문제1. 로그인 -->
@@ -355,8 +382,27 @@ btn3.addEventListener('click', function(event){
     </form>
   </div>
   <script>
-    // 입력된 아이디와 비밀번호가 없으면 로그인을 막는 코드를 작성하시오.
 
+    // 입력된 아이디와 비밀번호가 없으면 로그인을 막는 코드를 작성하시오.
+    
+    const loginForm = document.getElementById('login-form');
+    const id = document.getElementById('id');
+    const password = document.getElementById('password');
+
+    loginForm.addEventListener('submit', function(){
+      if(id.value === '') {
+        alert('아이디를 입력하세요.');
+        id.focus(); // id 입력란을 선택해줌
+        event.preventDefault(); // 서브밋 취소
+        return; // 이벤트 핸들러 취소
+    
+      } else if(password.value === '') {
+        alert('비밀번호를 입력하세요.');
+        password.focus();
+        event.preventDefault();
+        return;
+      }
+    })
   </script>
   <hr>
 
@@ -364,11 +410,6 @@ btn3.addEventListener('click', function(event){
 
   <!-- 문제2. 전구 -->
   <h4>전구</h4>
-  <div>
-    <div id="light" class="light-on"></div>
-    <div><button type="button" id="switch-btn" data-power="on" style="width: 60px; text-align: center;">ON</button>
-    </div>
-  </div>
   <style>
     #light {
       width: 59px;
@@ -385,9 +426,28 @@ btn3.addEventListener('click', function(event){
       background-image: url('../assets/images/lightOff.png');
     }
   </style>
+  <div>
+    <div id="light" class="light-on"></div>
+    <div><button type="button" id="switch-btn" data-power="on" style="width: 60px; text-align: center;">ON</button>
+    </div>
+  </div>
   <script>
     // 버튼을 누를때마다 ON/OFF 버튼 텍스트와 lightOn.png/lightOff.png 이미지를 변환하도록 구현하시오.
+    const switchBtn = document.getElementById('switch-btn');
+    const light = document.getElementById('light');
 
+    switchBtn.addEventListener('click', function(event){
+      const btn = event.currentTarget;
+      if(btn.textContent === 'ON') {
+        light.className = 'light-off';
+        btn.dataset.power = 'off';
+        btn.textContent = 'OFF';
+      } else {
+        light.className = 'light-on';
+        btn.dataset.power = 'on';
+        btn.textContent = 'ON';
+      }
+    })
   </script>
   <hr>
 
@@ -401,11 +461,27 @@ btn3.addEventListener('click', function(event){
     }
   </style>
   <div>
-    <input type="password" id="pw"><span id="eye" class="eye"><i class="fa-regular fa-eye-slash"></i></span>
+    <input type="password" id="pw">
+    <span id="eye" class="eye">
+      <i class="fa-regular fa-eye-slash">
+      </i>
+    </span>
   </div>
   <script>
     // 아이콘을 클릭할때마다 입력한 비밀번호를 보여주거나 숨기도록 구현하시오.
+    const icon = document.querySelector('#eye > i');
+    const passWord = document.getElementById('pw');
 
+    icon.addEventListener('click', function(event){
+
+      if (icon.className.indexOf('fa-eye-slash') !== -1) { // class 속성에 fa-eye-slash가 포함되어 있음
+        icon.className = 'fa-regular fa-eye';
+        passWord.type = 'text';
+      } else {
+        icon.className = 'fa-regular fa-eye-slash';
+        passWord.type = 'password'; 
+      }
+    })
   </script>
   <hr>
 
@@ -473,10 +549,6 @@ btn3.addEventListener('click', function(event){
       width: 576px;
       height: 314px;
       margin: 10px auto;
-    }
-
-    .thumbnail-wrap div {
-      box-sizing: border-box;
     }
 
     .thumbnail-wrap div {
@@ -555,6 +627,24 @@ btn3.addEventListener('click', function(event){
   </style>
   <script>
     // 전체 선택 체크 상자와 개별 선택 체크 상자가 상호 연동되도록 구현하시오.
+    const chkAll = document.getElementById('chk-all');
+    const chkEach = document.getElementsByClassName('chk-each');
+
+    // 전체 선택
+    chkAll.addEventListener('click', function(event) {
+      for(let i = 0; i < chkEach.length; i++)
+        chkEach[i].checked = chkAll.checked;
+    })
+
+    // 개별 선택
+    for(let i = 0; i < chkEach.length; i++)
+      chkEach[i].addEventListener('click', function(event){
+        let total = 0;
+        for(let j = 0; j < chkEach.length; j++)
+          total += chkEach[j].checked; // true는 1로 누적되고 false는 0으로 누적된다.
+        chkAll.checked = total === checkEach.length;// total이 3이면 true 아니면 false
+
+      })
 
   </script>
   <hr>
