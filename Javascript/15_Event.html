@@ -87,7 +87,7 @@
   <h4>고전 이벤트 모델</h4>
   <div>
     <div id='box1'>box1</div>
-    <div><button type='button' id="btn1">btn1</button></div>
+    <div><button type='button' id="btn1">바보</button></div>
   </div>
 
   <div>
@@ -118,7 +118,7 @@
       box2.textContent += '이벤트 종류 : ' + event.type;
     }
     function do2(event) {
-      box2.textContent += '이벤트 대상 : ' + event.target.textContent;
+      box2.textContent += ', 이벤트 대상 : ' + event.target.textContent;
     }
     btn2.onclick = function(event) {
       do1(event);
@@ -186,7 +186,7 @@ btn3.addEventListener('click', function(event){
 <h4>인라인 이벤트 모델</h4>
 <div>
   <div id="box4">box4</div>
-  <div><button type="button" id="btn4" onclick="fnInline()">btn4</button></div>
+  <div><button type="button" id="btn4" onclick="fnInline(event)">btn4</button></div>
 </div>
 
 <script>
@@ -194,8 +194,7 @@ btn3.addEventListener('click', function(event){
 
   function fnInline(event){
     box4.textContent = '이벤트 종류 : ' + event.type
-    alert('하하하');
-  }
+    }
 </script>
   <!--
     이벤트 전파
@@ -253,7 +252,7 @@ btn3.addEventListener('click', function(event){
 
 
   // 전역 함수
-  function fnGlobal(this) {
+  function fnGlobal() {
     console.log(this);
   }
 
@@ -637,14 +636,16 @@ btn3.addEventListener('click', function(event){
     })
 
     // 개별 선택
-    for(let i = 0; i < chkEach.length; i++)
+    for(let i = 0; i < chkEach.length; i++){
+
       chkEach[i].addEventListener('click', function(event){
         let total = 0;
         for(let j = 0; j < chkEach.length; j++)
           total += chkEach[j].checked; // true는 1로 누적되고 false는 0으로 누적된다.
-        chkAll.checked = total === checkEach.length;// total이 3이면 true 아니면 false
-
+        chkAll.checked = total === chkEach.length;// total이 3이면 true 아니면 false
+        
       })
+    }
 
   </script>
   <hr>
