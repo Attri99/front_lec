@@ -120,7 +120,7 @@
     function do2(event) {
       box2.textContent += ', 이벤트 대상 : ' + event.target.textContent;
     }
-    btn2.onclick = function(event) {
+    btn2.onclick = function (event) {
       do1(event);
       do2(event);
     }
@@ -152,27 +152,27 @@
         }
         button.addEventListener('click', eventHandler);
 -->
-<h4>표준 이벤트 모델</h4>
-<div>
-  <div id="box3">box3</div>
-  <div><button type="button" id="btn3">btn3</button></div>
-</div>
-<script>
+  <h4>표준 이벤트 모델</h4>
+  <div>
+    <div id="box3">box3</div>
+    <div><button type="button" id="btn3">btn3</button></div>
+  </div>
+  <script>
 
-/* 표준 이벤트 모델 동작 확인 */
+    /* 표준 이벤트 모델 동작 확인 */
 
-const box3 = document.getElementById('box3');
-const btn3 = document.getElementById('btn3');
+    const box3 = document.getElementById('box3');
+    const btn3 = document.getElementById('btn3');
 
-btn3.addEventListener('click', function(event) {
-  box3.textContent += '이벤트 타입 : ' + event.type;
-})
-btn3.addEventListener('click', function(event){
-  box3.textContent += '이벤트 대상 : ' + event.target.textContent;
-})
+    btn3.addEventListener('click', function (event) {
+      box3.textContent += '이벤트 타입 : ' + event.type;
+    })
+    btn3.addEventListener('click', function (event) {
+      box3.textContent += '이벤트 대상 : ' + event.target.textContent;
+    })
 
 
-</script>
+  </script>
   <!--
     인라인 이벤트 모델
     1. DOM 객체에 직접 이벤트 핸들러 속성(Event Handler Attribute) 등록하고 이벤트 핸들러를 호출하는 방식이다.
@@ -183,19 +183,19 @@ btn3.addEventListener('click', function(event){
 
       }
 -->
-<h4>인라인 이벤트 모델</h4>
-<div>
-  <div id="box4">box4</div>
-  <div><button type="button" id="btn4" onclick="fnInline(event)">btn4</button></div>
-</div>
+  <h4>인라인 이벤트 모델</h4>
+  <div>
+    <div id="box4">box4</div>
+    <div><button type="button" id="btn4" onclick="fnInline(event)">btn4</button></div>
+  </div>
 
-<script>
-  const box4 = document.getElementById('box4');
+  <script>
+    const box4 = document.getElementById('box4');
 
-  function fnInline(event){
-    box4.textContent = '이벤트 종류 : ' + event.type
+    function fnInline(event) {
+      box4.textContent = '이벤트 종류 : ' + event.type
     }
-</script>
+  </script>
   <!--
     이벤트 전파
     1. 이벤트 버블링(Event Bubbling)이라고 한다.
@@ -205,39 +205,39 @@ btn3.addEventListener('click', function(event){
     5. 이벤트 객체의 stopPropagation() 메소드를 이용해 이벤트 전파를 중지할 수 있다. 다만 특별한 이유가 없다면 중지할 필요가 없다.
 -->
 
-<h4>이벤트 버블링</h4>
-<style>
-  .bubble {
-    margin: 10px;
-    border: 1px solid green;
-  }
-</style>
-<div id="ancestor" class="bubble">
-  조상 div
-  <div id="parent" class="bubble">
-    부모 div
-    <div id="child" class="bubble">
-      자식 div
+  <h4>이벤트 버블링</h4>
+  <style>
+    .bubble {
+      margin: 10px;
+      border: 1px solid green;
+    }
+  </style>
+  <div id="ancestor" class="bubble">
+    조상 div
+    <div id="parent" class="bubble">
+      부모 div
+      <div id="child" class="bubble">
+        자식 div
+      </div>
     </div>
   </div>
-</div>
-<script>
-  const ancestor = document.getElementById('ancestor');
-  const parent = document.getElementById('parent');
-  const child = document.getElementById('child');
+  <script>
+    const ancestor = document.getElementById('ancestor');
+    const parent = document.getElementById('parent');
+    const child = document.getElementById('child');
 
-  ancestor.addEventListener('click', (event) => {
-    alert(`최초 이벤트 발생 : ${event.target.id}, 현재 이벤트 발생 : ${event.currentTarget.id}, this : ${this.id}`)
-  })
-  parent.addEventListener('click', (event) => {
-    alert(`최초 이벤트 발생 : ${event.target.id}, 현재 이벤트 발생 : ${event.currentTarget.id}, this : ${this.id}`)
-    //event.stopPropagation(); ancestor로 이벤트가 전파되는 것을 막는 코드
-  })
-  child.addEventListener('click', (event) => {
-    alert(`최초 이벤트 발생 : ${event.target.id}, 현재 이벤트 발생 : ${event.currentTarget.id}, this : ${this.id}`)
-  })
-</script>
-<!--
+    ancestor.addEventListener('click', (event) => {
+      alert(`최초 이벤트 발생 : ${event.target.id}, 현재 이벤트 발생 : ${event.currentTarget.id}, this : ${this.id}`)
+    })
+    parent.addEventListener('click', (event) => {
+      alert(`최초 이벤트 발생 : ${event.target.id}, 현재 이벤트 발생 : ${event.currentTarget.id}, this : ${this.id}`)
+      //event.stopPropagation(); ancestor로 이벤트가 전파되는 것을 막는 코드
+    })
+    child.addEventListener('click', (event) => {
+      alert(`최초 이벤트 발생 : ${event.target.id}, 현재 이벤트 발생 : ${event.currentTarget.id}, this : ${this.id}`)
+    })
+  </script>
+  <!--
   this
   1. 어떤 함수를 호출하는 객체를 의미한다.
   2. 함수 호출 방식에 따라서 this 객체가 달라진다.
@@ -247,91 +247,94 @@ btn3.addEventListener('click', function(event){
   4. 화살표 함수는 this에 자체 바인딩이 포함되지 않는다.
   5. 이벤트 핸들러가 화살표 함수인 경우 this는 사용하지 않는다.
 -->
-<h4>this</h4>
-<script>
+  <h4>this</h4>
+  <script>
 
 
-  // 전역 함수
-  function fnGlobal() {
-    console.log(this);
-  }
-
-  fnGlobal();
-
-  // 콜백 함수
-  function fnCallback(callback) {
-    callback();
-  } 
-  fnCallback(function() {
-    console.log(this);
-  })
-
-  // 객체에 포함된 함수
-  const car = {
-    model : 'x5',
-    drive: function() {
-      console.log(this); // this는 car 객체를 의미한다.
-      console.log(this.model + '타고 드라이브'); // this.model은 car.model을 의미한다.
-    }, 
-    parking: () => {
+    // 전역 함수
+    function fnGlobal() {
       console.log(this);
-      console.log(this.model + '주차 중');
     }
-  }
-  car.drive();
-  car.parking();
-</script>
+
+    fnGlobal();
+
+    // 콜백 함수
+    function fnCallback(callback) {
+      callback();
+    }
+    fnCallback(function () {
+      console.log(this);
+    })
+
+    // 객체에 포함된 함수
+    const car = {
+      model: 'x5',
+      drive: function () {
+        console.log(this); // this는 car 객체를 의미한다.
+        console.log(this.model + '타고 드라이브'); // this.model은 car.model을 의미한다.
+      },
+      parking: () => {
+        console.log(this);
+        console.log(this.model + '주차 중');
+      }
+    }
+    car.drive();
+    car.parking();
+  </script>
   <!-- 
     이벤트 위임 (Event Delegation)
     1. 자식에게 할당된 이벤트는 부모에게 전파된다.
     2. 자식이 처리해야 할 이벤트를 의도적으로 부모가 처리하게끔 만들 수 있다. 이를 이벤트 위임이라고 한다.
     3. 대표적으로 모든 자식들에게 반복해서 여러 번 할당해야 할 이벤트를 최상위 조상에게 한 번만 할당하는 방식이 있다.
 -->
-<h4>이벤트 위임</h4>
-<style>
-  table {
-    border-collapse: collapse;
-  }
-  table td {
+  <h4>이벤트 위임</h4>
+  <style>
+    table {
+      border-collapse: collapse;
+    }
+
+    table td {
       width: 100px;
       height: 100px;
       border: 1px solid green;
       text-align: center;
     }
-   .selected-td {
-    background-color: antiquewhite;
-   } 
- </style>
-<table id="table">
-  <tbody>
-    <tr>
-      <td>APT</td>
-      <td>Banana</td>
-      <td>City</td>
-    </tr>  
-    <tr>
-      <td>Drama</td>
-      <td>Eiffel</td>
-      <td>Fuel</td>
-    </tr>  
-    <tr>
-      <td>Giant</td>
-      <td>Hidden</td>
-      <td>Ivy</td>
-    </tr>  
-  </tbody>
-</table>
+
+    .selected-td {
+      background-color: antiquewhite;
+    }
+  </style>
+  <table id="table">
+    <tbody>
+      <tr>
+        <td>APT</td>
+        <td>Banana</td>
+        <td>City</td>
+      </tr>
+      <tr>
+        <td>Drama</td>
+        <td>Eiffel</td>
+        <td>Fuel</td>
+      </tr>
+      <tr>
+        <td>Giant</td>
+        <td>Hidden</td>
+        <td>Ivy</td>
+      </tr>
+    </tbody>
+  </table>
 
   <script>
     const table = document.getElementById('table');
 
     let selectedTd;
-    table.addEventListener('click', function(event){
+    table.addEventListener('click', function (event) {
       const td = event.target; // 클릭한 <td>
-      if(selectedTd !== undefined) {// if(selectedTd) 코드와 같음, 첫클릭이 아니라면 이전에 선택한 td는 해제
-        selectedTd.classList.remove('selected-td');}  
+      if (selectedTd !== undefined) {// if(selectedTd) 코드와 같음, 첫클릭이 아니라면 이전에 선택한 td는 해제
+        selectedTd.classList.remove('selected-td');
+      }
       selectedTd = td;          //선택한 <td>
-        selectedTd.classList.add('selected-td');
+      selectedTd.classList.add('selected-td');
     })
   </script>
   <!--
@@ -342,33 +345,33 @@ btn3.addEventListener('click', function(event){
       2) <form> 태그는 submit 하면 action 속성으로 입력 폼 요소의 데이터를 전송하고 입력 폼 요소의 값을 초기화한다.
     3. 이벤트 객체의 preventDefault() 메소드를 호출하면 디폴트 이벤트 동작을 막을 수 있다.
 -->
- <h4>디폴트 이벤트</h4>
- <div>
-  <a href="https://www.naver.com" target="_blank" id="naver-link">일회용 Naver 링크</a>
- </div>
- <script>
+  <h4>디폴트 이벤트</h4>
+  <div>
+    <a href="https://www.naver.com" target="_blank" id="naver-link">일회용 Naver 링크</a>
+  </div>
+  <script>
 
-  const naverLink = document.getElementById('naver-link');
+    const naverLink = document.getElementById('naver-link');
 
-  // let visited = false;
-  // naverLink.addEventListener('click', function(event){
-  //   const a = event.target;
-  //   if(visited !== false)
-  //     event.preventDefault();
-  //   visited = a;
-  // }) >> 내가 한거
+    // let visited = false;
+    // naverLink.addEventListener('click', function(event){
+    //   const a = event.target;
+    //   if(visited !== false)
+    //     event.preventDefault();
+    //   visited = a;
+    // }) >> 내가 한거
 
-  let visited = false;
-  naverlink.addEventListener('click', function(event){
-    if(visited){
-      alert('두 번은 못 갑니다.');
-      event.preventDefault(); // <a> 태그 동작 막기
-      return; // 함수 실행 종료
-    }
-    visited = true;
-  })
+    let visited = false;
+    naverLink.addEventListener('click', function (event) {
+      if (visited) {
+        alert('두 번은 못 갑니다.');
+        event.preventDefault(); // <a> 태그 동작 막기
+        return; // 함수 실행 종료
+      }
+      visited = true;
+    })
 
- </script>
+  </script>
 
 
   <!-- 문제1. 로그인 -->
@@ -383,19 +386,19 @@ btn3.addEventListener('click', function(event){
   <script>
 
     // 입력된 아이디와 비밀번호가 없으면 로그인을 막는 코드를 작성하시오.
-    
+
     const loginForm = document.getElementById('login-form');
     const id = document.getElementById('id');
     const password = document.getElementById('password');
 
-    loginForm.addEventListener('submit', function(){
-      if(id.value === '') {
+    loginForm.addEventListener('submit', function () {
+      if (id.value === '') {
         alert('아이디를 입력하세요.');
         id.focus(); // id 입력란을 선택해줌
         event.preventDefault(); // 서브밋 취소
         return; // 이벤트 핸들러 취소
-    
-      } else if(password.value === '') {
+
+      } else if (password.value === '') {
         alert('비밀번호를 입력하세요.');
         password.focus();
         event.preventDefault();
@@ -435,9 +438,9 @@ btn3.addEventListener('click', function(event){
     const switchBtn = document.getElementById('switch-btn');
     const light = document.getElementById('light');
 
-    switchBtn.addEventListener('click', function(event){
+    switchBtn.addEventListener('click', function (event) {
       const btn = event.currentTarget;
-      if(btn.textContent === 'ON') {
+      if (btn.textContent === 'ON') {
         light.className = 'light-off';
         btn.dataset.power = 'off';
         btn.textContent = 'OFF';
@@ -471,14 +474,14 @@ btn3.addEventListener('click', function(event){
     const icon = document.querySelector('#eye > i');
     const passWord = document.getElementById('pw');
 
-    icon.addEventListener('click', function(event){
+    icon.addEventListener('click', function (event) {
 
       if (icon.className.indexOf('fa-eye-slash') !== -1) { // class 속성에 fa-eye-slash가 포함되어 있음
         icon.className = 'fa-regular fa-eye';
         passWord.type = 'text';
       } else {
         icon.className = 'fa-regular fa-eye-slash';
-        passWord.type = 'password'; 
+        passWord.type = 'password';
       }
     })
   </script>
@@ -630,20 +633,20 @@ btn3.addEventListener('click', function(event){
     const chkEach = document.getElementsByClassName('chk-each');
 
     // 전체 선택
-    chkAll.addEventListener('click', function(event) {
-      for(let i = 0; i < chkEach.length; i++)
+    chkAll.addEventListener('click', function (event) {
+      for (let i = 0; i < chkEach.length; i++)
         chkEach[i].checked = chkAll.checked;
     })
 
     // 개별 선택
-    for(let i = 0; i < chkEach.length; i++){
+    for (let i = 0; i < chkEach.length; i++) {
 
-      chkEach[i].addEventListener('click', function(event){
+      chkEach[i].addEventListener('click', function (event) {
         let total = 0;
-        for(let j = 0; j < chkEach.length; j++)
+        for (let j = 0; j < chkEach.length; j++)
           total += chkEach[j].checked; // true는 1로 누적되고 false는 0으로 누적된다.
         chkAll.checked = total === chkEach.length;// total이 3이면 true 아니면 false
-        
+
       })
     }
 
@@ -655,6 +658,7 @@ btn3.addEventListener('click', function(event){
   <!-- 문제7. 검색 화면 구성하기 -->
   <h4>검색 화면 구성하기</h4>
   <div style="margin-bottom: 20px;">
+    <!-- 인라인 이벤트 모델에서 인자로 this를 전달하면 이벤트 핸들러는 해당 this 값을 이벤트 target으로 사용할 수 있다.-->
     <input type="radio" name="category" id="title" onclick="displaySearchBox(this)"><label for="title">제목</label>
     <input type="radio" name="category" id="date" onclick="displaySearchBox(this)"><label for="date">날짜</label>
     <input type="radio" name="category" id="price" onclick="displaySearchBox(this)"><label for="price">가격</label>
@@ -690,6 +694,16 @@ btn3.addEventListener('click', function(event){
   <script>
     // 선택한 카테고리의 검색 화면만 화면에 나타내시오.
 
+    const displaySearchBox = (radio) => {
+      const searchBoxes = document.getElementsByClassName('search-boxes');
+      for (const searchBox of searchBoxes) {
+        if (searchBox.id.startsWith(radio.id)) {
+          searchBox.style.display = 'block';
+        } else {
+          searchBox.style.display = 'none';
+        }
+      }
+    }
   </script>
   <hr>
 
@@ -758,7 +772,26 @@ btn3.addEventListener('click', function(event){
   </style>
   <script>
     // 계산기가 동작할 수 있도록 구현하시오.
-
+    const calculate = (btn) => {
+      const result = document.getElementById('result');
+      if (btn.textContent === 'AC') {
+        result.value = 0;
+      } else if (btn.textContent === '←') {
+        if (result.value.length === 1) {
+          result.value = 0;
+        } else {
+          result.value = result.value.slice(0, -1);
+        }
+      } else if (btn.textContent === '=') {
+        result.value = eval(result.value);
+      } else {
+        if(result.value === '0'){
+          result.value = btn.textContent;
+        }else {
+          result.value += btn.textContent;
+        }
+      }
+    }
   </script>
   <hr>
 
