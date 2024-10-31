@@ -330,7 +330,30 @@
       각 앨범(albumId) 마다 50개의 포토(id) 정보가 수록되어 있다.
       albumId 는 1 ~ 100 값을 가지고 있고, id 는 1 ~ 5000 값을 가지고 있다.
     */
+    document.getElementById('get-photo-btn').addEventListener('click', function(event){
+      const xhr = new XMLHttpRequest();
+      const method = 'GET';
+      let url = 'https://jsonplaceholder.typicode.com/photos';
+      xhr.open(method, url);
+      xhr.addEventListener('load', function(event){
+        const albumId = Number(document.getElementById('album-id').value);
+        const responseData = JSON.parse(xhr.responseText);
+        let str = '';
+        for(const photo of responseData){
+          if(photo.albumId === albumId){
+            str += '<tr>';
+            str += '  <td>' + photo.albumId + '</td>';
+            str += '  <td img src="' + photo.thumbnailUrl + '" width = "50px"></td>';
+            str += '  <td>' + photo.id + '</td>';
+            str += '  <td><a href=" ' + photo.url + '" target="_blank">'+ photo.title + '</a></td>';
+            str += '</tr>';
+          }
+        }
+      })
+      document.getElementById('photos').innerHTML = str;
+      xhr.send();
 
+    })
   </script>
   <hr>
 
