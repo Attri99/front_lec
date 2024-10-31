@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>XHR</title>
 </head>
+
 <body>
 
-<!--
+  <!--
     XMLHttpRequest 객체
 
     1. 서버와 상호작용할 때 사용하는 객체이다.
@@ -15,7 +17,7 @@
     3. XML 뿐만 아니라 모든 종류의 데이터를 받아올 수 있다.
 -->
 
-<!--
+  <!--
     XMLHttpRequest 객체 속성
     
     1. readyState
@@ -59,7 +61,7 @@
         --------------------------┴----------------------------------------------------------------------
 -->
 
-<!--
+  <!--
     XMLHttpRequest 객체 메소드
 
     1. XMLHttpRequest()
@@ -123,7 +125,7 @@
         --------------------------------┴--------------------------------------------------------┴---------------------------------------------------------------
 -->
 
-<!--
+  <!--
     XMLHttpRequest 객체 이벤트
 
     1. error
@@ -139,14 +141,100 @@
       2) onreadystatechange 속성으로 이벤트를 수신(Event Listen)할 수 있다.
 -->
 
-<!--
+  <!--
     Fake API : https://thetestrequest.com
     1. JSON 또는 XML 데이터를 제공하는 사이트이다.
     2. REST 방식으로 동작한다.
     3. 아직 BackEnd Server 가 없기 때문에 FrontEnd 수업에서 잠시만 사용한다.
 -->
 
-<!--
+  <h4>비동기 요청과 JSON 응답</h4>
+  <div>
+    <button type="button" id="json-btn">json 응답</button>
+    <div id="authors"></div>
+  </div>
+
+  <script>
+    document.getElementById('json-btn').addEventListener('click', function (event) {
+
+      //1. XMLHttpRequest 객체 생성
+      const xhr = new XMLHttpRequest();
+
+      // 2. 요청 초기화
+
+      const method = 'GET';
+      const url = 'https://thetestrequest.com/authors/';
+      xhr.open(method, url);
+
+      // 3. 요청 상태(readyState) 변화 감지 이벤트
+      xhr.addEventListener('readystatechange', function (event) {
+
+        // 요청 상태 확인
+        if (xhr.readyState === XMLHttpRequest.DONE) { // if(xhr.readystate === 4)
+
+          // 응답 상태 확인
+          if (xhr.status === 200) {
+
+            //응답 데이터가 json인 경우 응답 속성으로 responseText를 사용한다.
+            const responseData = JSON.parse(xhr.responseText);
+
+            // 응답 데이터를 태그로 만들어 화면에 출력한다.
+            let str = '';
+            responseData.forEach(author => {
+              str += '<div class ="author">';
+              str += ' <div>ID : ' + author.id + '</div>';
+              str += ' <div>NAME : ' + author.name + '</div>';
+              str += ' <div>EMAIL : ' + author.email + '</div>';
+              str += ' <div><a href=" ' > + author.avatar + ' "target=_blank">AVATAR</a></div>';
+              str += ' <div>CREATED_AT : ' + author.created_at + '</div>';
+              str += ' <div>UPDATED_AT : ' + author.updated_at + '</div>';
+              str += '</div>';
+
+
+            })
+            document.getElementById('authors').innerHTML = str;
+
+          };
+        }
+      } 
+    )
+
+    // 4. 요청 전송
+    xhr.send();
+
+  })
+  </script>
+  <hr>
+
+  <h4>비동기 요청과 JSON 응답</h4>
+  <div>
+    <button type="button" id="xml-btn">json 응답</button>
+    <div id="author-list"></div>
+  </div>
+  <script>
+    document.getElementById('xml-btn').addEventListener('click', function(event){
+      const xhr = new XMLHttpRequest();
+      const method = 'GET';
+      const url = 'https://thetestrequest.com/authors.xml';
+      xhr.open(method, url);
+      xhr.addEventListener('readystatechange', function(event){
+        if(xhr.readyState === XMLHttpRequest.DONE) {
+          if(xhr.status === 200) {
+            // 응답 데이터가 XML인 경우 responseXML 속성을 사용한다.
+            const responseData = xhr.responseXML;
+            const authors = responseData.getElementsByTagName('object');
+            for(const author of authors){
+              console.log(author.getElementsByTagName('id')[0].textContent);
+            }
+          }
+        }
+      })
+      xhr.send();
+    })
+  </script>
+
+
+  <!--
     공공데이터 포털 서비스 활용하기(data.go.kr)
 
     1. 상세기능
@@ -185,40 +273,67 @@
         nx         | 예보지점 X 좌표   | 87
         ny         | 예보지점 Y 좌표   | 141
 -->
-<h4>공공데이터 요청하기(https://www.data.go.kr/data/15084084/openapi.do)</h4>
-<div id="div3">
-  <button type="button" id="public-data-btn">요청</button>
-  <div id="contents"></div>
-</div>
-<script>
+  <h4>공공데이터 요청하기(https://www.data.go.kr/data/15084084/openapi.do)</h4>
+  <div id="div3">
+    <button type="button" id="public-data-btn">요청</button>
+    <div id="contents"></div>
+  </div>
+  <script>
+    document.getElementById('public-data-btn').addEventListener('click', function(event){
+      const xhr = new XMLHttpRequest();
+      const method = 'GET';
+      let url = 'http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst';
+      url += '?servicekey=MRLCcOOyTiDPZEU%2BCvqn2%2BLRAhaGLAhLVBADw8519i4laKBlv7MiM4%2BCdBKZTbtdot2piTav6ajyq%2Bk9uqyE6w%3D%3D';
+      url += '&pageNO=1';
+      url += '&numOfRows=1000';
+      url += '&base_date=20241031';
+      url += '&base_time=0500';
+      url += '&nx=61';
+      url += '&ny=125';
+      url += '&dataType=JSON';
+      xhr.open(method, url);
+      xhr.addEventListener('load', function(event){
+        const responseData = JSON.parse(xhr.responseText);
+        console.log(responseData);
+      })
+      xhr.addEventListener('error', function(event){
+        console.log(xhr.status, xhr.statusText);  
+      })
+      xhr.send();
+    })
+  </script>
+  <hr>
 
-</script>
-<hr>
 
 
+  <!-- 문제. FakeAPI 정보 가져오기 -->
+  <h4>FakeAPI 정보 가져오기(https://jsonplaceholder.typicode.com/photos)</h4>
+  <div>
+    <input type="text" id="album-id" placeholder="앨범ID (1 - 100)">
+    <button type="button" id="get-photo-btn">앨범정보요청</button>
+  </div>
+  <table border="1">
+    <thead>
+      <tr>
+        <td>앨범아이디</td>
+        <td>포토썸네일</td>
+        <td>포토아이디</td>
+        <td>포토제목(클릭하면 포토이미지 오픈)</td>
+      </tr>
+    </thead>
+    <tbody id="photos"></tbody>
+  </table>
+  <script>
+    /*
+      https://jsonplaceholder.typicode.com/photos
+      앨범마다 포토가 50개씩 들어있는 상황의 정보가 제공된다.
+      각 앨범(albumId) 마다 50개의 포토(id) 정보가 수록되어 있다.
+      albumId 는 1 ~ 100 값을 가지고 있고, id 는 1 ~ 5000 값을 가지고 있다.
+    */
 
-<!-- 문제. FakeAPI 정보 가져오기 -->
-<h4>FakeAPI 정보 가져오기(https://jsonplaceholder.typicode.com/photos)</h4>
-<div>
-  <input type="text" id="album-id" placeholder="앨범ID (1 - 100)">
-  <button type="button" id="get-photo-btn">앨범정보요청</button>
-</div>
-<table border="1">
-  <thead>
-    <tr><td>앨범아이디</td><td>포토썸네일</td><td>포토아이디</td><td>포토제목(클릭하면 포토이미지 오픈)</td></tr>
-  </thead>
-  <tbody id="photos"></tbody>
-</table>
-<script>
-  /* 
-    https://jsonplaceholder.typicode.com/photos
-    앨범마다 포토가 50개씩 들어있는 상황의 정보가 제공된다.
-    각 앨범(albumId) 마다 50개의 포토(id) 정보가 수록되어 있다.
-    albumId 는 1 ~ 100 값을 가지고 있고, id 는 1 ~ 5000 값을 가지고 있다.
-  */
-
-</script>
-<hr>
+  </script>
+  <hr>
 
 </body>
+
 </html>
